@@ -14,6 +14,10 @@ class TodoItem {
 	private String content;
 	private boolean done;
 
+	public Integer getId() {
+		return id;
+	}
+
 	public String getContent() {
 		return content;
 	}
