@@ -24,7 +24,7 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping
+    @PostMapping("/addTodo")
     public String addTodo(@ModelAttribute TodoItem todoItem) {
     	todoItemRepository.save(todoItem);
     	return "redirect:/";
@@ -43,5 +43,4 @@ public class HomeController {
 
     	return "redirect:/";
     }
-
 }
