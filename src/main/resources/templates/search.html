@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Todo List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p>Todo List</p>
+    <form action="#" th:action="@{/search/results}" th:object="${searchText}" method="post">
+    	<input type="text" th:field="*{text}">
+    	<input type="submit" value="Search">
+    </form>
+	
+
+<!-- 	<table th:each="item: ${todoItems}">
+		<tr th:if="${!item.done}">
+			<td width="300px" th:text="${item.content}"></td>
+			<td><a th:href="@{|/itemDone/${item.id}|}">Done</a></td>
+			<td><a th:href="@{|/todo/${item.id}|}">Edit</a></td>
+		</tr>
+	</table> -->
+</body>
+</html>
