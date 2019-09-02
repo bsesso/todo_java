@@ -25,6 +25,7 @@ public class EditController {
     public String saveTodo(@PathVariable(value="id") String id, @ModelAttribute TodoItem todoItem) {
     	TodoItem item = todoItemRepository.findById(Integer.parseInt(id)).get();
     	item.setContent(todoItem.getContent());
+        item.setDate(todoItem.getDate());
     	todoItemRepository.save(item);
     	return "redirect:/";
     }

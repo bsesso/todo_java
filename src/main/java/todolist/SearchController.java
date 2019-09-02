@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SearchController {
 	@Autowired
-	private TodoItemRepository todoItemRepository;
+	private SearchTextRepository searchTextRepository;
 
     @GetMapping("/search")
     public String searchPage(Model model) {
@@ -26,7 +26,9 @@ public class SearchController {
     @PostMapping("/search/results")
     public String doSearch(@ModelAttribute SearchText searchText) {
         System.out.println(searchText.getText());
+        SearchText st = searchTextRepository.findById(1).get();
+        System.out.println("Consegui: " + st.getText());
 
-    	return "redirect:/";
+    	return "redirect:/search";
     }
 }

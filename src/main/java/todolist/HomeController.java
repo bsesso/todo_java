@@ -43,4 +43,13 @@ public class HomeController {
 
     	return "redirect:/";
     }
+
+    @GetMapping("/itemUndone/{id}")
+    public String itemUndone(@PathVariable(value="id") String id) {
+        TodoItem item = todoItemRepository.findById(Integer.parseInt(id)).get();
+        item.setDone(false);
+        todoItemRepository.save(item);
+
+        return "redirect:/";
+    }
 }

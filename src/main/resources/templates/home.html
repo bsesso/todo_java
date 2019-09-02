@@ -5,18 +5,29 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <p>Todo List</p>
+    <h2>Todo List</h2>
+
+	<p th:if="${#lists.isEmpty(todoItems)}">There is nothing todo!</p>
 	
 	<table th:each="item: ${todoItems}">
-		<tr th:if="${!item.done}">
+		<tr>
 			<td width="300px" th:text="${item.content}"></td>
-			<td><a th:href="@{|/itemDone/${item.id}|}">Done</a></td>
+			<td th:text="${item.date}"></td>
+			<td>
+				<a th:if="${item.done}" th:href="@{|/itemUndone/${item.id}|}">Undone</a>
+				<a th:if="${!item.done}" th:href="@{|/itemDone/${item.id}|}">Done</a>
+			</td>
 			<td><a th:href="@{|/todo/${item.id}|}">Edit</a></td>
 		</tr>
 	</table>
 
+	<h3>New Todo</h3>
     <form action="#" th:action="@{/addTodo}" th:object="${todoItem}" method="post">
-    	<input type="text" th:field="*{content}">
+    	<label for="content">Text:</label>
+    	<input type="text" id="content" th:field="*{content}">
+    	<br>
+    	<label for="date">Date:</label>
+		<input type="date" id="date" th:field="*{date}">
     	<input type="submit" value="Add to list">
     </form>
 </body>
