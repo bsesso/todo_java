@@ -5,7 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Todo</h1>
+	<div th:replace="fragments/header :: header"></div>
+
+	<h3>Edit Item</h3>
 
 	<form action="#" th:action="@{|/todo/${todoItem.id}/save|}" th:object="${todoItem}" method="post">
 	    <textarea th:field="*{content}" rows="4" cols="50" th:text="${todoItem.content}"></textarea>

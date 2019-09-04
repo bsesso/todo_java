@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @Controller
 public class SearchController {
-	@Autowired
-	private SearchTextRepository searchTextRepository;
+    @Autowired
+    private TodoItemRepository todoItemRepository;
 
     @GetMapping("/search")
     public String searchPage(Model model) {
@@ -24,11 +27,13 @@ public class SearchController {
     }
 
     @PostMapping("/search/results")
-    public String doSearch(@ModelAttribute SearchText searchText) {
+    public String doSearch(@ModelAttribute("searchText") SearchText searchText, Model model) {
         System.out.println(searchText.getText());
-        SearchText st = searchTextRepository.findById(1).get();
-        System.out.println("Consegui: " + st.getText());
+        List<TodoItem> results = todoItemRepository.findByContentContaining(searchText.getText());
+        System.out.println(results);
 
-    	return "redirect:/search";
+        model.addAttribute("results", results);
+
+    	return "search";
     }
 }

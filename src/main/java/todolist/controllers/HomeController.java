@@ -19,8 +19,10 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
     	model.addAttribute("todoItem", new TodoItem());
-    	Iterable<TodoItem> todoItems = todoItemRepository.findAll();
-    	model.addAttribute("todoItems", todoItems);
+
+    	model.addAttribute("todoItems", todoItemRepository.findByDone(false));
+        model.addAttribute("doneItems", todoItemRepository.findByDone(true));
+
         return "home";
     }
 
@@ -28,11 +30,6 @@ public class HomeController {
     public String addTodo(@ModelAttribute TodoItem todoItem) {
     	todoItemRepository.save(todoItem);
     	return "redirect:/";
-    }
-
-    @GetMapping("/all")
-    public @ResponseBody Iterable<TodoItem> getAllTodoItems() {
-    	return todoItemRepository.findAll();
     }
 
     @GetMapping("/itemDone/{id}")
