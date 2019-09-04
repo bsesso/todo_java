@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Todo List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+
+    <h2>Todo List</h2>
+
+	<p th:if="${#lists.isEmpty(todoItems)}">There is nothing todo!</p>
+	
+	<table style="text-align: left;">
+		<tr>
+			<th width="300px">Content</th>
+			<th width="150px">Date</th>
+			<th width="150px">Creation date</th>
+		</tr>
+		<tr th:each="item: ${todoItems}">
+			<td th:text="${item.content}"></td>
+			<td th:text="${#dates.format(item.date, 'yyyy-MM-dd')}"></td>
+			<td th:text="${#dates.format(item.createdAt, 'yyyy-MM-dd')}"></td>
+			<td><a th:href="@{|/itemDone/${item.id}|}">Done</a></td>
+			<td><a th:href="@{|/todo/${item.id}|}">Edit</a></td>
+		</tr>
+	</table>
+
+	<h3>New Todo</h3>
+    <form action="#" th:action="@{/addTodo}" th:object="${todoItem}" method="post">
+    	<label for="content">Text:</label>
+    	<input type="text" id="content" th:field="*{content}">
+    	<br>
+    	<label for="date">Date:</label>
+		<input type="date" id="date" th:field="*{date}">
+    	<input type="submit" value="Add to list">
+    </form>
+	
+	<br>
+    <hr>
+	<br>
+	
+
+	<h2>Done Items</h2>
+
+	<p th:if="${#lists.isEmpty(doneItems)}">There is nothing done!</p>
+
+	<table style="text-align: left;">
+		<tr>
+			<th width="300px">Content</th>
+			<th width="150px">Date</th>
+			<th width="150px">Creation date</th>
+		</tr>	
+		<tr th:each="item: ${doneItems}">
+			<td width="300px" th:text="${item.content}"></td>
+			<td th:text="${#dates.format(item.date, 'yyyy-MM-dd')}"></td>
+			<td th:text="${#dates.format(item.createdAt, 'yyyy-MM-dd')}"></td>
+			<td><a th:href="@{|/itemUndone/${item.id}|}">Undone</a></td>
+			<td><a th:href="@{|/todo/${item.id}|}">Edit</a></td>
+		</tr>
+	</table>
+</body>
+</html>
